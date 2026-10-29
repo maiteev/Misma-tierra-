@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Misma Tierra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="bar bar-top">
+  <span>Tarea 06 · Sonido · DPPI · 2026 </span>
+  <span class="grow chain">PRESENCIA → PLANTA → LUZ → <b>MOVIMIENTO</b> → CONEXIÓN → FRECUENCIA → SONIDO</span>
+  <div class="group-inline seg" id="modeSeg" role="group" aria-label="Modo sonoro">
+    <button type="button" id="modeHarp" class="neon" aria-pressed="true">Arpa Dinámica</button>
+    <button type="button" id="modePulse" aria-pressed="false">Pulso Rítmico</button>
+  </div>
+  <button type="button" class="neon" id="soundBtn" aria-pressed="false">▶ Activar sonido</button>
+  <button type="button" id="fsBtn">⛶ Pantalla completa</button>
+</div>
+
+<main class="stage" id="stage">
+  <div class="screen">
+  <canvas id="view"></canvas>
+  <div class="title"><h1> Misma Tierra</h1><p id="status">Fuente: planta interactiva (escultura STL)</p></div>
+  <div class="readout" aria-live="polite">
+    <div class="note" id="lastNote">—</div>
+    <div><span class="lbl">frecuencia </span><span class="val" id="lastHz">—</span> <span class="lbl"> · zona </span><span class="val" id="lastZone">—</span> <span class="lbl"> · cambio </span><span class="val" id="lastPct">—</span></div>
+    <div class="rule" id="mapText">zona → nota</div>
+  </div>
+  <div class="toast" id="toast" hidden></div>
+  </div>
+
+  <nav class="dock" id="dock" aria-label="Parámetros">
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pVis"><span><span class="num">01</span>Visualización</span><span class="state" id="stVis">sutil</span></button>
+      <div class="panel" id="pVis" hidden>
+        <div class="panel-bar"><span>01 · Visualización</span><button type="button" data-close>Cerrar</button></div>
+        <div class="seg" role="group" aria-label="Fondo">
+          <button type="button" data-view="mix" aria-pressed="true">Video</button>
+          <button type="button" data-view="mask" aria-pressed="false">Máquina</button>
+        </div>
+        <p class="hint">Máquina reemplaza el video por los píxeles que cambiaron: es todo lo que el sistema ve.</p>
+        <div class="row"><label for="tint">Tono azul</label><input type="range" id="tint" min="0" max="60" step="1" value="22"><output id="tintOut">22 %</output></div>
+        <div class="row"><label for="veil">Oscurecer</label><input type="range" id="veil" min="0" max="70" step="1" value="0"><output id="veilOut">0 %</output></div>
+        <p class="hint">Líneas, notas y partículas se apagan desde la barra inferior.</p>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pKeys"><span><span class="num">02</span>Modo y Escala</span><span class="state" id="stKeys">Arpa</span></button>
+      <div class="panel" id="pKeys" hidden>
+        <div class="panel-bar"><span>02 · Modo y Escala</span><button type="button" data-close>Cerrar</button></div>
+        <div class="seg" role="group" aria-label="Modo de sonido">
+          <button type="button" id="panelModeHarp" aria-pressed="true">Arpa Dinámica</button>
+          <button type="button" id="panelModePulse" aria-pressed="false">Pulso Rítmico</button>
+        </div>
+        <p class="hint"><b>Arpa:</b> las cajas tocan notas al cruzar alturas.<br><b>Pulso:</b> un arpegiador lee las cajas activas secuencialmente.</p>
+        <div class="row two"><label for="scale">Escala</label>
+          <select id="scale"><option value="pmaj">Pentatónica mayor</option><option value="pmin">Pentatónica menor</option><option value="maj">Mayor</option><option value="chr">Cromática</option></select></div>
+        <div class="row two"><label for="root">Nota base</label>
+          <select id="root"><option value="48" selected>Do3 · 131 Hz</option><option value="55">Sol3 · 196 Hz</option><option value="57">La3 · 220 Hz</option><option value="60">Do4 · 262 Hz</option></select></div>
+        <p class="hint">La altura vertical (eje Y) define la nota dentro de la escala. Las cajas arriba son agudas y abajo son graves.</p>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pDet"><span><span class="num">03</span>Detección</span><span class="state" id="stDet">4 %</span></button>
+      <div class="panel" id="pDet" hidden>
+        <div class="panel-bar"><span>03 · Detección</span><button type="button" data-close>Cerrar</button></div>
+        <div class="row"><label for="thr">Umbral píxel</label><input type="range" id="thr" min="10" max="80" step="1" value="32"><output id="thrOut">32</output></div>
+        <div class="row"><label for="sens">Sensibilidad</label><input type="range" id="sens" min="1" max="40" step="1" value="4"><output id="sensOut">4 %</output></div>
+        <div class="row"><label for="cool">Repetición</label><input type="range" id="cool" min="60" max="1200" step="20" value="260"><output id="coolOut">260 ms</output></div>
+        <p class="hint">Filtra el ruido de la cámara para detectar movimiento real. Si hay un movimiento brusco, el sonido se corta de inmediato.</p>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pSnd"><span><span class="num">04</span>Sonido</span><span class="state" id="stSnd">catálogo</span></button>
+      <div class="panel" id="pSnd" hidden>
+        <div class="panel-bar"><span>04 · Sonido</span><button type="button" data-close>Cerrar</button></div>
+        <div class="seg" role="group" aria-label="Fuente sonora">
+          <button type="button" id="sndCat" class="neon" aria-pressed="true">Catálogo</button>
+          <button type="button" id="sndSynth" aria-pressed="false">Sintetizador</button>
+        </div>
+        <div id="catControls">
+          <div class="row two"><label for="catPreset">Banco</label>
+            <select id="catPreset">
+              <option value="scale" selected>Afinado a escala (Multimuestra)</option>
+              <option value="high">Campanillas agudas (Viento)</option>
+              <option value="low">Campanas graves (Resonancia)</option>
+              <option value="wind">Ráfagas de viento (Enjambre)</option>
+              <option value="random">Aleatorio orgánico</option>
+            </select>
+          </div>
+          <p class="hint">13 muestras reales del catálogo de campanas y campanillas de viento afinadas según la zona y la escala.</p>
+        </div>
+        <div id="synthControls" hidden>
+          <div class="seg" role="group" aria-label="Forma de onda">
+            <button type="button" data-wave="sine" aria-pressed="false">Seno</button>
+            <button type="button" data-wave="triangle" aria-pressed="true">Triang.</button>
+            <button type="button" data-wave="square" aria-pressed="false">Cuadr.</button>
+            <button type="button" data-wave="sawtooth" aria-pressed="false">Sierra</button>
+          </div>
+          <p class="hint">Osciladores puros sintetizados en tiempo real mediante Web Audio API.</p>
+        </div>
+        <div class="row"><label for="atk">Attack</label><input type="range" id="atk" min="1" max="800" step="1" value="8"><output id="atkOut">8 ms</output></div>
+        <div class="row"><label for="rel">Release</label><input type="range" id="rel" min="40" max="3000" step="10" value="700"><output id="relOut">700 ms</output></div>
+        <div class="row"><label for="cut">Pasa-bajos</label><input type="range" id="cut" min="200" max="12000" step="10" value="3200"><output id="cutOut">3.2k</output></div>
+        <div class="row"><label for="rev">Reverb</label><input type="range" id="rev" min="0" max="100" step="1" value="30"><output id="revOut">30 %</output></div>
+        <div class="row"><label for="vol">Volumen</label><input type="range" id="vol" min="0" max="100" step="1" value="60"><output id="volOut">60 %</output></div>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pMap"><span><span class="num">05</span>Mapping</span><span class="state" id="stMap">3 reglas</span></button>
+      <div class="panel" id="pMap" hidden>
+        <div class="panel-bar"><span>05 · Mapping</span><button type="button" data-close>Cerrar</button></div>
+        <div class="checks">
+          <label><input type="checkbox" checked disabled> zona → nota</label>
+          <label><input type="checkbox" id="mapVel" checked> intensidad del movimiento → volumen</label>
+          <label><input type="checkbox" id="mapPan" checked> posición horizontal → pan</label>
+          <label><input type="checkbox" id="mirror" checked> espejo (cámara)</label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pRec"><span><span class="num">06</span>Grabar</span><span class="state" id="stRec">—</span></button>
+      <div class="panel" id="pRec" hidden>
+        <div class="panel-bar"><span>06 · Grabar y descargar</span><button type="button" data-close>Cerrar</button></div>
+        <div class="btnrow">
+          <button type="button" class="rec" id="recBtn" aria-pressed="false">● Grabar</button>
+          <span class="mono" id="recTime">0:00</span>
+          <button type="button" id="recDl" disabled>Descargar grabación</button>
+        </div>
+        <div class="btnrow"><button type="button" id="noteDl" disabled>Descargar última nota</button></div>
+        <p class="hint" id="recHint">Graba lo que suena. Activa el sonido primero.</p>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="trigger" aria-expanded="false" data-panel="pMidi"><span><span class="num">07</span>MIDI</span><span class="state" id="stMidi">sin conectar</span></button>
+      <div class="panel" id="pMidi" hidden>
+        <div class="panel-bar"><span>07 · Controlador MIDI</span><button type="button" data-close>Cerrar</button></div>
+        <div class="btnrow">
+          <button type="button" id="midiBtn">Conectar MIDI</button>
+          <button type="button" id="learnBtn" aria-pressed="false" disabled>Asignar</button>
+          <button type="button" id="midiClear" disabled>Borrar</button>
+        </div>
+        <p class="hint" id="midiHint">Conecta un controlador, presiona Asignar, abre un panel, toca un slider y mueve una perilla.</p>
+      </div>
+    </div>
+  </nav>
+
+  <section class="signal" id="signal" aria-label="Señal">
+    <div class="signal-bar"><span>08 · Señal</span><button type="button" id="sigHide" style="border:0;padding:0 2px;color:var(--gray-2)">Ocultar</button></div>
+    <div class="signal-body">
+      <div class="cap"><span id="scopeCap">forma de onda · triangular</span><span id="specCap">armónicos</span></div>
+      <canvas id="scope" style="height:76px"></canvas>
+      <div class="cap"><span id="envCapL">envolvente</span><span id="envCapR">reverb · vol</span></div>
+      <canvas id="env" style="height:64px"></canvas>
+      <div class="cap"><span>partitura · últimos 10 s</span><span>altura × tiempo</span></div>
+      <canvas id="roll"></canvas>
+    </div>
+  </section>
+</main>
+
+<div class="bar bar-bottom">
+  <div class="group-inline seg" role="group" aria-label="Fuente">
+    <button type="button" id="srcPlant" aria-pressed="true">Planta</button>
+    <button type="button" id="srcCam" aria-pressed="false">Cámara</button>
+    <button type="button" id="srcFile" aria-pressed="false">Subir video</button>
+  </div>
+  <div class="group-inline" id="camCtx" hidden><button type="button" id="camOff">Apagar cámara</button></div>
+  <div class="group-inline" id="vidCtx" hidden>
+    <button type="button" id="vPlay">▶ Play</button><button type="button" id="vPause">❚❚ Pausa</button>
+    <button type="button" id="vLoop" aria-pressed="true">⟲ Loop</button><button type="button" id="vChange">Cambiar</button>
+  </div>
+  <input type="file" id="fileInput" accept="video/*" hidden>
+  <span class="grow"></span>
+  <span class="mono" id="recBadge" hidden><span class="rec-dot">●</span> REC <span id="recBadgeT">0:00</span></span>
+  <div class="group-inline" role="group" aria-label="Capas">
+    <button type="button" class="toggle" id="tLines" aria-pressed="true">Líneas</button>
+    <button type="button" class="toggle" id="tNotes" aria-pressed="true">Notas</button>
+    <button type="button" class="toggle" id="tParts" aria-pressed="true">Partículas</button>
+    <button type="button" class="toggle" id="tSignal" aria-pressed="true">Señal</button>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
