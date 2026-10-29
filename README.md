@@ -1,4 +1,4 @@
-## Concepto y relación imagen-sonido:
+ ## Concepto y relación imagen-sonido:
 El propósito del proyecto es recordar y reactivar nuestra conexión profunda con la naturaleza a través de una experiencia de traducción e interpretación: un ejercicio donde dejamos de habitar nuestra perspectiva humana para encarnar la existencia de la planta. No se trata de una metamorfosis literal, sino de una sensibilidad compartida. Las plantas sostienen una vida silenciosa; crecen, se expanden y procesan la luz sin hacer ruido perceptible a nuestros oídos. Sin embargo, en ese silencio habita un ritmo constante. Al conectar con el entorno, comenzamos a fluir al tiempo del viento. Si el viento genera sonido al acariciar las hojas y la naturaleza convierte la luz invisible en vida, nuestra interacción traduce ese movimiento mudo en frecuencias audibles. Al movernos con la planta, nos volvemos el canal que le da voz a su silencio y nos integramos en un mismo ecosistema sonoro.
 
 ---
