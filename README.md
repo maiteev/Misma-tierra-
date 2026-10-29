@@ -1,7 +1,12 @@
- ## Concepto y relación imagen-sonido:
+# Misma Tierra — Sonificación de la Vida Silvestre
+
+> **Plataforma web interactiva para la exploración de la relación entre imagen en movimiento y sonido.**
+
+Misma Tierra es una experiencia interactiva que difumina la frontera entre el ser humano y la naturaleza, traduciendo el crecimiento silencioso de las plantas en frecuencias sonoras. Al interactuar con el entorno vegetal, la persona deja de ser un espectador para convertirse en el canal que le da voz a la vida invisible del ecosistema, recordando que ambos pertenecemos al mismo origen.
+
+## Concepto y relación imagen-sonido:
 El propósito del proyecto es recordar y reactivar nuestra conexión profunda con la naturaleza a través de una experiencia de traducción e interpretación: un ejercicio donde dejamos de habitar nuestra perspectiva humana para encarnar la existencia de la planta. No se trata de una metamorfosis literal, sino de una sensibilidad compartida. Las plantas sostienen una vida silenciosa; crecen, se expanden y procesan la luz sin hacer ruido perceptible a nuestros oídos. Sin embargo, en ese silencio habita un ritmo constante. Al conectar con el entorno, comenzamos a fluir al tiempo del viento. Si el viento genera sonido al acariciar las hojas y la naturaleza convierte la luz invisible en vida, nuestra interacción traduce ese movimiento mudo en frecuencias audibles. Al movernos con la planta, nos volvemos el canal que le da voz a su silencio y nos integramos en un mismo ecosistema sonoro.
 
----
 
 ## Banco de sonidos y disparador:
 Manteniendo la metáfora del viento que mueve a la materia, el banco sonoro utiliza las timbres de un metalófono para evocar el tintineo sutil de un móvil o colgante al brisa. La escala musical se distribuye de forma horizontal emulando la estructura de un arpa: las notas más graves se posicionan en la base y ascienden gradualmente hacia los agudos en la parte superior de las hojas o la camara. A través del movimiento, el sistema despliega marcadores interactivos que detectan el desplazamiento; al cruzar la trayectoria de cada frecuencia visual, se dispara de forma orgánica la nota correspondiente.
@@ -31,14 +36,16 @@ Los efectos de sonido de metalófono utilizados en este proyecto provienen de [P
 - **Licencia:** [Pixabay Content License](https://pixabay.com/service/license-summary/)
 - **Permisos:** Libre para uso comercial y no comercial, edición y modificación dentro del proyecto.
 - **Atribución:** No requerida por la licencia original, pero incluida como buena práctica de reconocimiento de autoría.
----
+
 
 ## Parámetros y gráfica:
 La interfaz utiliza un fondo oscuro con tonos verdes para evocar una atmósfera natural y tecnológica. Al centro, un modelo 3D de un árbol común, sirve como cuerpo principal de interacción. Mediante un efecto de data vision, la actividad vegetal y el movimiento se traducen en datos visuales en tiempo real: marcadores de rastreo desplegadas en pantalla donde se puede ver la palabra "VIDA", recuadros las cuales funcionan como la representación gráfica directa del sonido generado. Así, la gráfica sintetiza lo orgánico y lo digital, convirtiendo la vida silenciosa de la planta en una experiencia visual y sonora tangible.
----
+
 
 ## Reflexión: 
-Al darle sonido a la imagen y al movimiento hace que realmente le pongamos atención a sonidos que tenemos tan normalizados que ya no los escuchamos, como el viento soplar o los pájaros cantar. La mejora que se le puede hacer para conectar mejor con el concepto, sería agregar sonidos que sean realmente de la naturaleza, como el movimiento de las hojas, el agua corriendo o algo más melodioso como la lluvia. Estos sonidos hicieron falta para que la persona se sienta realmente con una planta
+Al darle sonido a la imagen y al movimiento hace que realmente le pongamos atención a sonidos que tenemos tan normalizados que ya no los escuchamos, como el viento soplar o los pájaros cantar. La mejora que se le puede hacer para conectar mejor con el concepto, sería agregar sonidos que sean realmente de la naturaleza, como el movimiento de las hojas, el agua corriendo o algo más melodioso como la lluvia. Estos sonidos hicieron falta para que la persona se sienta realmente con una planta.
+
+Proyecto 06: Anto Acevedo/ Maite Villarroel
 
 ## Créditos
 
